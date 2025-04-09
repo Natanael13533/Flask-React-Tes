@@ -34,7 +34,7 @@ const KelasSiswaViewer = () => {
               <td>{index + 1}</td>
               <td>{kelas.name}</td>
               <td>
-                {kelas.siswa.length > 0 ? (
+                {Array.isArray(kelas.siswa) && kelas.siswa.length > 0 ? (
                   kelas.siswa.map((s, i) => (
                     <div key={i}>{s}</div>
                   ))

@@ -36,10 +36,8 @@ const KelasGuruViewer = () => {
               <td>{index + 1}</td>
               <td>{kelas.name}</td>
               <td>
-                {kelas.guru.length > 0 ? (
-                  kelas.guru.map((g, i) => (
-                    <div key={i}>{g}</div>
-                  ))
+                {Array.isArray(kelas.guru) && kelas.guru.length > 0 ? (
+                  kelas.guru.map((g, i) => <div key={i}>{g}</div>)
                 ) : (
                   <em>Tidak ada</em>
                 )}
