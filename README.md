@@ -104,47 +104,6 @@ Berikut cara untuk Clone Project.
    ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Jika sudah melalui semua tahap instalasi program sudah bisa diakses.
-
-Pengakasesan halaman register dan login:
-
-`AKSES URL`
-* Login Admin <br/>
-  Admin dapat login dengan menekan tombol "Masuk Sebagai Dokter" pada halaman home.
-* Login Dokter <br/>
-  Sama dengan admin, dokter juga dapat login dengan menekan tombol "Masuk Sebagai Dokter" pada halaman home.
-* Login Pasien <br/>
-  Pasien dapat login dengan menekan tombol "Masuk Sebagai Pasien" pada halaman home.
-* Register Pasien <br/>
-  Register Pasien dapat diakses pada halaman login pasien, yang dimana sebelah kiri tombol "Log In" ada link bernama "Tidak Punya Akun? Daftar Di Sini" jika di tekan maka anda akan masuk ke halaman register pasien.
-* Register Dokter <br/>
-  Dokter tidak bisa registrasi, namun admin dapat menambahkan data dokter pada dashboard admin, yang nantinya dari data dokter yang sudah di tambahkan, bisa melakukan login dokter.
-* Register Admin <br/>
-  Bisa di tambahkan secara langsung melalui phpmyadmin, atau shell xampp
-* Email dan Password admin <br/>
-  jika, sudah melakukan import sql, maka bisa mengakses admin dashboard dengan <br/>
-  email : admin@gmail.com <br/>
-  password : admin123 
-* Email dan Password dokter <br/>
-  jika, sudah melakukan import sql, maka bisa mengakses dokter dashboard dengan <br/>
-  email1 : james@gmail.com <br/>
-  password : james123 <br/>
-  email2 : bond@gmail.com <br/>
-  password : bond12345 
-* Email dan Password pasien <br/>
-  jika, sudah melakukan import sql, maka bisa mengakses pasien dashboard dengan <br/>
-  email1 : bambang@gmail.com <br/>
-  password : bambang123 <br/>
-  email2 : phineas@gmail.com <br/>
-  password : phineas123 
-
-  
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [Flask]: https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=Flask&logoColor=white
