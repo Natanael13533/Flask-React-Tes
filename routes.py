@@ -45,6 +45,8 @@ def detail_kelas(kelas_id):
     return jsonify({
         "id": kelas.id,
         "name": kelas.name,
+        "siswa": [{"id": s.id, "name": s.name} for s in kelas.siswa],
+        "guru": [{"id": g.id, "name": g.name} for g in kelas.guru],
     }), 200
 
 @api.route("/kelas", methods=["POST"])
