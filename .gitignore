@@ -1,7 +1,9 @@
-_pycache__/
+__pycache__/
 .env
 venv/
 
+
+# Flask instance/config files
 instance/
 *.sqlite3
 *.db
