@@ -56,7 +56,7 @@ Berikut cara untuk Clone Project.
    ```sh
    git clone -b backend https://github.com/Natanael13533/Flask-React-Tes.git
    ```
-2. pindah ke project yang sudah ke clone
+2. ubah nama project yang sudah di clone menjadi backend(atau bisa yang lain), lalu pindah terminal ke project yang sudah ke clone
    ```sh
    cd backend
    ```
@@ -90,7 +90,7 @@ Berikut cara untuk Clone Project.
    ```sh
    git clone -b frontend https://github.com/Natanael13533/Flask-React-Tes.git
    ```
-2. pindah ke project yang sudah di clone
+2. ubah nama project yang sudah di clone menjadi backend(atau bisa yang lain), lalu pindah terminal ke project yang sudah ke clone
    ```sh
    cd frontend
    ```
