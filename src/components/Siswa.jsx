@@ -7,6 +7,7 @@ function ManageSiswa() {
   const [kelasList, setKelasList] = useState([]);
   const [newSiswa, setNewSiswa] = useState({ name: "", kelas_id: "" });
   const [message, setMessage] = useState("");
+  const [errors, setErrors] = useState({ name: "", kelas_id: "" });
 
   useEffect(() => {
     fetchSiswa();
@@ -33,6 +34,29 @@ function ManageSiswa() {
 
   const handleAddSiswa = async (e) => {
     e.preventDefault();
+
+    // Validation
+    let hasError = false;
+    const newErrors = { name: "", kelas_id: "" };
+  
+    if (!newSiswa.name.trim()) {
+      newErrors.name = "Siswa wajib diisi.";
+      hasError = true;
+    }
+  
+    if (!newSiswa.kelas_id) {
+      newErrors.kelas_id = "Kelas wajib dipilih.";
+      hasError = true;
+    }
+  
+    if (hasError) {
+      setErrors(newErrors);
+      return;
+    }
+  
+    // clear errors
+    setErrors({ name: "", kelas_id: "" });
+
     try {
       await api.post("/siswa", newSiswa);
       setMessage("Siswa berhasil ditambahkan");
@@ -55,18 +79,19 @@ function ManageSiswa() {
                     <label className="form-label">Nama Siswa:</label>
                     <input
                         type="text"
-                        className="form-control"
+                        className={`form-control ${errors.name ? "is-invalid" : ""}`}
                         placeholder="Nama Siswa"
                         value={newSiswa.name}
                         onChange={(e) =>
                             setNewSiswa({ ...newSiswa, name: e.target.value })
                         }
                     />
+                    {errors.name && <div className="invalid-feedback">{errors.name}</div>}
                 </div>
                 <div className="mb-3 mt-3">
                     <label className="form-label">Pilih Kelas:</label>
                     <select
-                        className="form-control"
+                        className={`form-control ${errors.kelas_id ? "is-invalid" : ""}`}
                         value={newSiswa.kelas_id}
                         onChange={(e) =>
                             setNewSiswa({ ...newSiswa, kelas_id: e.target.value })
@@ -79,6 +104,7 @@ function ManageSiswa() {
                             </option>
                         ))}
                     </select>
+                    {errors.kelas_id && <div className="invalid-feedback">{errors.kelas_id}</div>}
                 </div>
                 <button type="submit" className="btn btn-primary">Tambah Siswa</button>
             </form>

@@ -8,6 +8,7 @@ const EditGuru = () => {
   const [guru, setGuru] = useState({ name: "", kelas_id: "" });
   const [kelasList, setKelasList] = useState([]);
   const [message, setMessage] = useState("");
+  const [errors, setErrors] = useState({ name: "", kelas_id: "" });
 
   useEffect(() => {
     fetchGuru();
@@ -34,6 +35,29 @@ const EditGuru = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validation
+    let hasError = false;
+    const newErrors = { name: "", kelas_id: "" };
+  
+    if (!guru.name.trim()) {
+      newErrors.name = "Guru wajib diisi.";
+      hasError = true;
+    }
+  
+    if (!guru.kelas_id) {
+      newErrors.kelas_id = "Kelas wajib dipilih.";
+      hasError = true;
+    }
+  
+    if (hasError) {
+      setErrors(newErrors);
+      return;
+    }
+  
+    // clear errors
+    setErrors({ name: "", kelas_id: "" });
+
     try {
       await api.put(`/guru/${id}`, guru);
       setMessage("Guru berhasil diperbarui");
@@ -53,15 +77,16 @@ const EditGuru = () => {
           <label className="form-label">Nama Guru:</label>
           <input
             type="text"
-            className="form-control"
+            className={`form-control ${errors.name ? "is-invalid" : ""}`}
             value={guru.name}
             onChange={(e) => setGuru({ ...guru, name: e.target.value })}
           />
+          {errors.name && <div className="invalid-feedback">{errors.name}</div>}
         </div>
         <div className="mb-3 mt-3">
           <label className="form-label">Pilih Kelas:</label>
           <select
-            className="form-control"
+            className={`form-control ${errors.kelas_id ? "is-invalid" : ""}`}
             value={guru.kelas_id}
             onChange={(e) => setGuru({ ...guru, kelas_id: e.target.value })}
           >
@@ -72,6 +97,7 @@ const EditGuru = () => {
               </option>
             ))}
           </select>
+          {errors.kelas_id && <div className="invalid-feedback">{errors.kelas_id}</div>}
         </div>
         <button type="submit" className="btn btn-primary">
           Perbarui Guru

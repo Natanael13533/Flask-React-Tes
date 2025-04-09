@@ -8,6 +8,7 @@ const EditSiswa = () => {
   const [siswa, setSiswa] = useState({ name: "", kelas_id: "" });
   const [kelasList, setKelasList] = useState([]);
   const [message, setMessage] = useState("");
+  const [errors, setErrors] = useState({ name: "", kelas_id: "" });
 
   useEffect(() => {
     fetchSiswa();
@@ -35,6 +36,29 @@ const EditSiswa = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validation
+    let hasError = false;
+    const newErrors = { name: "", kelas_id: "" };
+  
+    if (!siswa.name.trim()) {
+      newErrors.name = "Siswa wajib diisi.";
+      hasError = true;
+    }
+  
+    if (!siswa.kelas_id) {
+      newErrors.kelas_id = "Kelas wajib dipilih.";
+      hasError = true;
+    }
+  
+    if (hasError) {
+      setErrors(newErrors);
+      return;
+    }
+  
+    // clear errors
+    setErrors({ name: "", kelas_id: "" });
+
     try {
       await api.put(`/siswa/${id}`, siswa);
       setMessage("Siswa berhasil diperbarui");
@@ -55,15 +79,16 @@ const EditSiswa = () => {
           <label className="form-label">Nama Siswa:</label>
           <input
             type="text"
-            className="form-control"
+            className={`form-control ${errors.name ? "is-invalid" : ""}`}
             value={siswa.name}
             onChange={(e) => setSiswa({ ...siswa, name: e.target.value })}
           />
+          {errors.name && <div className="invalid-feedback">{errors.name}</div>}
         </div>
         <div className="mb-3 mt-3">
           <label className="form-label">Pilih Kelas:</label>
           <select
-            className="form-control"
+            className={`form-control ${errors.kelas_id ? "is-invalid" : ""}`}
             value={siswa.kelas_id}
             onChange={(e) => setSiswa({ ...siswa, kelas_id: e.target.value })}
           >
@@ -74,6 +99,7 @@ const EditSiswa = () => {
               </option>
             ))}
           </select>
+          {errors.kelas_id && <div className="invalid-feedback">{errors.kelas_id}</div>}
         </div>
         <button type="submit" className="btn btn-primary">
           Perbarui Siswa

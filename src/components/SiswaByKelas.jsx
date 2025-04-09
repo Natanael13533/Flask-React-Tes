@@ -3,8 +3,6 @@ import api from "../api"; // pastikan ini mengarah ke Axios instance kamu
 
 const KelasSiswaViewer = () => {
   const [kelasList, setKelasList] = useState([]);
-  const [selectedKelasId, setSelectedKelasId] = useState(null);
-  const [siswaList, setSiswaList] = useState([]);
 
   useEffect(() => {
     fetchKelas();
@@ -19,71 +17,35 @@ const KelasSiswaViewer = () => {
     }
   };
 
-  const fetchSiswaByKelas = async (kelasId) => {
-    try {
-      const res = await api.get(`/kelas/${kelasId}/siswa`);
-      setSelectedKelasId(kelasId);
-      setSiswaList(res.data);
-    } catch (error) {
-      console.error("Gagal mengambil data siswa", error);
-    }
-  };
-
   return (
     <div className="container mt-4">
-        <h2>Daftar Siswa Berdasarkan Kelas</h2>
-        <div className="row">
-            <div className="col-md-6">
-                <table className="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Nama Kelas</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {kelasList.map((kelas) => (
-                            <tr key={kelas.id}>
-                                <td>{kelas.name}</td>
-                                <td>
-                                    <button
-                                    className="btn btn-primary"
-                                    onClick={() => fetchSiswaByKelas(kelas.id)}
-                                    >
-                                    Lihat Siswa
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-            <div className="col-md-6">
-                {selectedKelasId && (
-                    <div className="mt-4">
-                    <h4>Daftar Siswa Kelas {kelasList.find(k => k.id === selectedKelasId)?.name}</h4>
-                    {siswaList.length === 0 ? (
-                        <p>Tidak ada siswa dalam kelas ini.</p>
-                    ) : (
-                        <table className="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Nama Siswa</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {siswaList.map((siswa) => (
-                                <tr key={siswa.id}>
-                                    <td>{siswa.name}</td>
-                                </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    )}
-                    </div>
+      <h2>Semua Data</h2>
+      <table className="table table-bordered ">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Kelas</th>
+            <th>Siswa</th>
+          </tr>
+        </thead>
+        <tbody>
+          {kelasList.map((kelas, index) => (
+            <tr key={kelas.id}>
+              <td>{index + 1}</td>
+              <td>{kelas.name}</td>
+              <td>
+                {kelas.siswa.length > 0 ? (
+                  kelas.siswa.map((s, i) => (
+                    <div key={i}>{s}</div>
+                  ))
+                ) : (
+                  <em>Tidak ada</em>
                 )}
-            </div>
-        </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

@@ -16,7 +16,8 @@ import SiswaByKelas from "./components/SiswaByKelas";
 import GuruByKelas from "./components/GuruByKelas";
 import AllData from "./components/AllData";
 import Register from "./components/Register";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./components/route/PrivateRoute";
+import PublicRoute from "./components/route/PublicRoute";
 // import ManageKelas dan ManageGuru sesuai kebutuhan
 
 const App = () => {
@@ -73,8 +74,8 @@ const AppContent = ({isLoggedIn, handleLogin, handleLogout}) => {
       {!shouldHideHeader && isLoggedIn && <Header onLogout={handleLogout} />}
       <Routes>
         
-        <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<PublicRoute><Login onLogin={handleLogin} /></PublicRoute>} />
+        <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
 
         <Route path="*" element={<PrivateRoute><NotFound /></PrivateRoute>} />
         <Route path="/" element={<PrivateRoute><h1>Welcome to Dashboard</h1></PrivateRoute>} />
