@@ -35,7 +35,16 @@ def login():
 @jwt_required()
 def get_kelas():
     kelas_list = Kelas.query.all()
-    result = [{"id": k.id, "name": k.name} for k in kelas_list]
+    result = []
+
+    for k in kelas_list:
+        result.append({
+            "id": k.id,
+            "name": k.name,
+            "siswa": [s.name for s in k.siswa],  # if relationship is list of siswa
+            "guru": [g.name for g in k.guru]  # if single guru object
+        })
+
     return jsonify(result), 200
 
 @api.route("/kelas/<int:kelas_id>", methods=["GET"])
