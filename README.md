@@ -22,7 +22,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <h1 align="center">Branch yang di download ada pada branch frontend dan backend</h1>
+  <h1 align="center">Flask dan Vite + React project</h1>
 </div>
 
 <!-- ABOUT THE PROJECT -->
