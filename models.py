@@ -17,8 +17,14 @@ class Siswa(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     kelas_id = db.Column(db.Integer, db.ForeignKey('kelas.id'), nullable=False)
+    parents = db.relationship('Parents', backref='parents', lazy=True)
 
 class Guru(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     kelas_id = db.Column(db.Integer, db.ForeignKey('kelas.id'), nullable=False)
+
+class Parents(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    siswa_id = db.Column(db.Integer, db.ForeignKey('siswa.id'), nullable=False)

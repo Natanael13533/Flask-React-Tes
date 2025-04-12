@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from models import db, User, Kelas, Siswa, Guru
+from models import db, User, Kelas, Siswa, Guru, Parents
 
 api = Blueprint("api", __name__)
 
@@ -89,8 +89,16 @@ def delete_kelas(kelas_id):
 @api.route("/siswa", methods=["GET"])
 @jwt_required()
 def get_siswas():
-    siswas = Siswa.query.all()
-    result = [{"id": s.id, "name": s.name, "kelas_id": s.kelas_id} for s in siswas]
+    siswa_list = Siswa.query.all()
+    result = []
+
+    for s in siswa_list:
+        result.append({
+            "id": s.id,
+            "name": s.name,
+            "parents": [s.name for s in s.parents],  # if relationship is list of siswa
+        })
+
     return jsonify(result), 200
 
 @api.route("/siswa", methods=["POST"])
@@ -193,6 +201,61 @@ def delete_guru(guru_id):
 def get_gurus_by_kelas(kelas_id):
     guru = Guru.query.filter_by(kelas_id=kelas_id).all()
     result = [{"id": g.id, "name": g.name} for g in guru]
+    return jsonify(result), 200
+
+# ----- CRUD orang Tua -----
+@api.route("/parents", methods=["GET"])
+@jwt_required()
+def get_parents():
+    parents = Parents.query.all()
+    result = [{"id": p.id, "name": p.name, "siswa_id": p.siswa_id} for p in parents]
+    return jsonify(result), 200
+
+@api.route("/parent", methods=["POST"])
+@jwt_required()
+def add_parent():
+    data = request.json
+    name = data.get("name")
+    siswa_id = data.get("siswa_id")
+    parent = Parents(name=name, siswa_id=siswa_id)
+    db.session.add(parent)
+    db.session.commit()
+    return jsonify({"msg": "Orang Tua siswa ditambahkan", "id": parent.id}), 201
+
+@api.route("/parent/<int:parent_id>", methods=["GET"])
+@jwt_required()
+def detail_parent(parent_id):
+    parent = Parents.query.get_or_404(parent_id)
+    return jsonify({
+        "id": parent.id,
+        "name": parent.name,
+        "siswa_id": parent.siswa_id
+    }), 200
+
+@api.route("/parent/<int:parent_id>", methods=["PUT"])
+@jwt_required()
+def update_parent(parent_id):
+    data = request.json
+    parent = Parents.query.get_or_404(parent_id)
+    parent.name = data.get("name", parent.name)
+    parent.siswa_id = data.get("siswa_id", parent.siswa_id)
+    db.session.commit()
+    return jsonify({"msg": "Orang Tua diperbarui"}), 200
+
+@api.route("/parent/<int:parent_id>", methods=["DELETE"])
+@jwt_required()
+def delete_parent(parent_id):
+    parent = Parents.query.get_or_404(parent_id)
+    db.session.delete(parent)
+    db.session.commit()
+    return jsonify({"msg": "Orang tua dihapus"}), 200
+
+# List orang tua berdasarkan siswa
+@api.route("/siswa/<int:siswa_id>/parent", methods=["GET"])
+@jwt_required()
+def get_parents_by_siswa(siswa_id):
+    parent = Parents.query.filter_by(siswa_id=siswa_id).all()
+    result = [{"id": g.id, "name": g.name} for g in parent]
     return jsonify(result), 200
 
 # Endpoint untuk mendapatkan list lengkap (Siswa, Kelas, Guru)
