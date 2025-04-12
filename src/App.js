@@ -18,6 +18,10 @@ import AllData from "./components/AllData";
 import Register from "./components/Register";
 import PrivateRoute from "./components/route/PrivateRoute";
 import PublicRoute from "./components/route/PublicRoute";
+import ManageParents from "./components/Parents";
+import EditParent from "./components/parents/EditParents";
+import DetailParent from "./components/parents/DetailParents";
+import ParentsBySiswa from "./components/ParentsBySiswa";
 // import ManageKelas dan ManageGuru sesuai kebutuhan
 
 const App = () => {
@@ -36,25 +40,6 @@ const App = () => {
 
   return (
     <div>
-      {/* {!shouldHideHeader && isLoggedIn && <Header onLogout={handleLogout} />}
-      <Routes>
-        <Route path="/" element={<h1>Welcome to Dashboard</h1>} />
-        <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        <Route path="/register" element={<Register />} />
-
-        <Route path="/siswa" element={<PrivateRoute><ManageSiswa /></PrivateRoute>} />
-        <Route path="/siswa/edit/:id" element={<PrivateRoute><EditSiswa /></PrivateRoute>} />
-        <Route path="/siswa/detail/:id" element={<PrivateRoute><DetailSiswa /></PrivateRoute>} /> 
-        <Route path="/kelas" element={<PrivateRoute><ManageKelas /></PrivateRoute>} />
-        <Route path="/kelas/edit/:id" element={<PrivateRoute><EditKelas /></PrivateRoute>} />
-        <Route path="/kelas/detail/:id" element={<PrivateRoute><DetailKelas /></PrivateRoute>} /> 
-        <Route path="/guru" element={<PrivateRoute><ManageGuru /></PrivateRoute>} />
-        <Route path="/guru/edit/:id" element={<PrivateRoute><EditGuru /></PrivateRoute>} />
-        <Route path="/guru/detail/:id" element={<PrivateRoute><DetailGuru /></PrivateRoute>} />
-        <Route path="/list/siswa" element={<PrivateRoute><SiswaByKelas /></PrivateRoute>} />
-        <Route path="/list/guru" element={<PrivateRoute><GuruByKelas /></PrivateRoute>} />
-        <Route path="/all" element={<PrivateRoute><AllData /></PrivateRoute>} />
-      </Routes> */}
       <AppContent 
         isLoggedIn={loggedIn}
         handleLogin={handleLogin}
@@ -88,7 +73,11 @@ const AppContent = ({isLoggedIn, handleLogin, handleLogout}) => {
         <Route path="/guru" element={<PrivateRoute><ManageGuru /></PrivateRoute>} />
         <Route path="/guru/edit/:id" element={<PrivateRoute><EditGuru /></PrivateRoute>} />
         <Route path="/guru/detail/:id" element={<PrivateRoute><DetailGuru /></PrivateRoute>} />
+        <Route path="/parents" element={<PrivateRoute><ManageParents /></PrivateRoute>} />
+        <Route path="/parent/edit/:id" element={<PrivateRoute><EditParent /></PrivateRoute>} />
+        <Route path="/parent/detail/:id" element={<PrivateRoute><DetailParent /></PrivateRoute>} />
         <Route path="/list/siswa" element={<PrivateRoute><SiswaByKelas /></PrivateRoute>} />
+        <Route path="/list/parents" element={<PrivateRoute><ParentsBySiswa /></PrivateRoute>} />
         <Route path="/list/guru" element={<PrivateRoute><GuruByKelas /></PrivateRoute>} />
         <Route path="/all" element={<PrivateRoute><AllData /></PrivateRoute>} />
       </Routes>

@@ -39,6 +39,12 @@ const Login = ({ onLogin }) => {
                                 </div>
                                 <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
                             </form>
+                            {/* Message Display */}
+                            {message && (
+                              <div className="alert alert-danger mt-4">
+                                {message} {/* Show success or error message */}
+                              </div>
+                            )}
                         </div>
                         <div>
                             <p class="mb-0">Tidak punya akun? <a href="/register" class="text-white-50 fw-bold">Register</a>

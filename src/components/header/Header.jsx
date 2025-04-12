@@ -65,9 +65,11 @@ function Header({ onLogout }) {
             navbarScroll
           >
             <Nav.Link as={NavLink} to="/siswa">Siswa</Nav.Link>
+            <Nav.Link as={NavLink} to="/parents">Parents</Nav.Link>
             <Nav.Link as={NavLink} to="/guru">Guru</Nav.Link>
             <Nav.Link as={NavLink} to="/kelas">Kelas</Nav.Link>
             <Nav.Link as={NavLink} to="/list/siswa">List Siswa</Nav.Link>
+            <Nav.Link as={NavLink} to="/list/parents">List Parent</Nav.Link>
             <Nav.Link as={NavLink} to="/list/guru">List Guru</Nav.Link>
             <Nav.Link as={NavLink} to="/all">Semua Data</Nav.Link>
           </Nav>
